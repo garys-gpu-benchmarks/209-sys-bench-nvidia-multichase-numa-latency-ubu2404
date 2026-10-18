@@ -188,7 +188,11 @@ def main() -> int:
             print("[WARN] numactl bind not permitted; retrying unbound", file=transcript)
             if tier == "remote_dram":
                 print("[INFO] skipping remote_dram; membind did not succeed", file=transcript)
-                rows.append(not_measured_row(index, tier, size, args, "numactl --membind=1 not permitted"))
+                rows.append(not_measured_row(
+                    index, tier, size, args,
+                    "numactl --membind=1 not permitted",
+                    "na (requires a second NUMA node)",
+                ))
                 continue
             cmd = [str(binary), str(size), str(args.stride), str(iters), str(warmup)]
             print("[RUN]", " ".join(cmd), file=transcript)
