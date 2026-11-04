@@ -22,3 +22,8 @@ sweep:
     smoke: 200000
     baseline: 1330000000
     extended: 2760000000
+  num_threads:
+    smoke: 1
+    baseline: 4
+    extended: 4
+  thread_affinity: 0-3

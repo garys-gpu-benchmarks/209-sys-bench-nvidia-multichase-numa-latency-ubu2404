@@ -11,6 +11,8 @@
 | stride | `--stride` | smoke=64, baseline=64, extended=64 | 64 | From Parameter list; see Execution Description With Parameters. |
 | warmup_iters | `--warmup-iters` | smoke=10000, baseline=1000000, extended=1000000 | 1000000 | From Parameter list; see Execution Description With Parameters. |
 | num_iterations | `--num-iterations` | smoke=200000, baseline=1330000000, extended=2760000000 | 1330000000 | From Parameter list; see Execution Description With Parameters. |
+| num_threads | `--num-threads` | smoke=1, baseline=4, extended=4 | 4 | From Parameter list; see Execution Description With Parameters. |
+| thread_affinity | `--thread-affinity` | smoke=0-3, baseline=0-3, extended=0-3 | 0-3 | From Parameter list; see Execution Description With Parameters. |
 
 ## Invocation
 

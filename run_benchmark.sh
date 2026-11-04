@@ -50,6 +50,8 @@ Workload options:
   --stride <value>            Override stride
   --warmup-iters <value>            Override warmup_iters
   --num-iterations <value>            Override num_iterations
+  --num-threads <value>            Override num_threads
+  --thread-affinity <value>            Override thread_affinity
 
 Information:
   --specification               Print this workload's specification and exit
@@ -88,6 +90,8 @@ WORKING_SET_SIZE=""
 STRIDE=""
 WARMUP_ITERS=""
 NUM_ITERATIONS=""
+NUM_THREADS=""
+THREAD_AFFINITY=""
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
@@ -113,6 +117,8 @@ while [[ $# -gt 0 ]]; do
     --stride) STRIDE="${2:-}"; shift 2 ;;
     --warmup-iters) WARMUP_ITERS="${2:-}"; shift 2 ;;
     --num-iterations) NUM_ITERATIONS="${2:-}"; shift 2 ;;
+    --num-threads) NUM_THREADS="${2:-}"; shift 2 ;;
+    --thread-affinity) THREAD_AFFINITY="${2:-}"; shift 2 ;;
     --help|--specification|--matrix-definition) shift ;;
     *) die "Unknown option: $1" ;;
   esac
@@ -156,6 +162,8 @@ WORKING_SET_SIZE="${WORKING_SET_SIZE:-$(yaml_get working_set_size)}"
 STRIDE="${STRIDE:-$(yaml_get stride)}"
 WARMUP_ITERS="${WARMUP_ITERS:-$(yaml_get warmup_iters)}"
 NUM_ITERATIONS="${NUM_ITERATIONS:-$(yaml_get num_iterations)}"
+NUM_THREADS="${NUM_THREADS:-$(yaml_get num_threads)}"
+THREAD_AFFINITY="${THREAD_AFFINITY:-$(yaml_get thread_affinity)}"
 OUTPUT_FORMAT="${OUTPUT_FORMAT:-$(yaml_get output_format)}"
 OUTPUT_FORMAT="${OUTPUT_FORMAT:-csv}"
 
@@ -166,6 +174,8 @@ BENCHMARK_RUN_COMMAND="bash run_benchmark.sh --${PROFILE}"
 [[ -n "${STRIDE}" ]] && BENCHMARK_RUN_COMMAND+=" --stride $(printf %q "${STRIDE}")"
 [[ -n "${WARMUP_ITERS}" ]] && BENCHMARK_RUN_COMMAND+=" --warmup-iters $(printf %q "${WARMUP_ITERS}")"
 [[ -n "${NUM_ITERATIONS}" ]] && BENCHMARK_RUN_COMMAND+=" --num-iterations $(printf %q "${NUM_ITERATIONS}")"
+[[ -n "${NUM_THREADS}" ]] && BENCHMARK_RUN_COMMAND+=" --num-threads $(printf %q "${NUM_THREADS}")"
+[[ -n "${THREAD_AFFINITY}" ]] && BENCHMARK_RUN_COMMAND+=" --thread-affinity $(printf %q "${THREAD_AFFINITY}")"
 set_benchmark_run_command "${BENCHMARK_RUN_COMMAND}"
 
 HOSTNAME_VALUE="$(hostname -s 2>/dev/null || hostname)"
@@ -213,6 +223,8 @@ run_collection() {
   grep -q -- '--stride' <<<"${help}" && collect_args+=(--stride "${STRIDE}")
   grep -q -- '--warmup-iters' <<<"${help}" && collect_args+=(--warmup-iters "${WARMUP_ITERS}")
   grep -q -- '--num-iterations' <<<"${help}" && collect_args+=(--num-iterations "${NUM_ITERATIONS}")
+  grep -q -- '--num-threads' <<<"${help}" && collect_args+=(--num-threads "${NUM_THREADS}")
+  grep -q -- '--thread-affinity' <<<"${help}" && collect_args+=(--thread-affinity "${THREAD_AFFINITY}")
 
   printf -v collect_cmd '%q ' "${PYTHON_BIN}" scripts/collect_workload.py "${collect_args[@]}"
   echo "[RUN] ${collect_cmd}"
