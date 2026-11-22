@@ -11,16 +11,16 @@ Reference results from the validation run on the system shown in each section (r
 ## smoke
 
 - **System:** 1× NVIDIA H100 80GB HBM3 (81559 MiB) · Intel(R) Xeon(R) Platinum 8470 · Ubuntu 24.04.5 LTS · kernel 6.8.0-149-generic · driver 595.112.07
-- **Run:** 2026-11-22T10:49:46Z · status **N/A-EXPECTED** (exit 0)
-- **Time (mm:ss):** setup 00:30 · benchmark 00:02 · whole run 00:37
-- **Source:** run 209_20261122_104946
+- **Run:** 2026-11-22T14:13:15Z · status **N/A-EXPECTED** (exit 0)
+- **Time (mm:ss):** setup 00:31 · benchmark 00:02 · whole run 00:38
+- **Source:** run 209_20261122_141315
 - **Command:** `bash run_benchmark.sh --smoke --num-numa-nodes 1 --working-set-size l1=16384,l2=262144,l3=2097152,local_dram=268435456,remote_dram=268435456 --stride 64 --warmup-iters 10000 --num-iterations 200000 --num-threads 1 --thread-affinity 0-3`
 
 | # | Metric | Result |
 |---|---|---|
-| 1 | Pointer-chase latency for the L1-cache tier (latency_ns_l1) | 2.084 |
-| 2 | Pointer-chase latency for the L2-cache tier (latency_ns_l2) | 5.861415 |
-| 3 | Pointer-chase latency for the L3-cache tier (latency_ns_l3) | 9.98868 |
-| 4 | Local DRAM latency, ns (latency_ns_local_dram) | 99.945985 |
+| 1 | Pointer-chase latency for the L1-cache tier (latency_ns_l1) | 5.77804 |
+| 2 | Pointer-chase latency for the L2-cache tier (latency_ns_l2) | 5.72874 |
+| 3 | Pointer-chase latency for the L3-cache tier (latency_ns_l3) | 9.552995 |
+| 4 | Local DRAM latency, ns (latency_ns_local_dram) | 100.405545 |
 | 5 | Remote DRAM latency, ns, na on a host with fewer than two NUMA nodes (latency_ns_remote_dram) | na (expected: host has 2+ NUMA nodes but numactl cannot bind memory to a remote node here) |
 <!-- /profile:smoke -->
